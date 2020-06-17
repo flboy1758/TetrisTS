@@ -1,6 +1,16 @@
 // Import stylesheets
 import './style.css';
 
-// Write TypeScript code!
-const appDiv: HTMLElement = document.getElementById('app');
-appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;
+const canvas = <HTMLCanvasElement> document.getElementById("game-canvas");
+
+const context = canvas.getContext("2d");
+
+context.lineCap = 'round';
+context.lineJoin = 'round';
+context.strokeStyle = 'green';
+context.lineWidth = 1;
+
+context.fillStyle = 'green'
+
+context.fillRect(10,10,280,100)
+context.fill();
