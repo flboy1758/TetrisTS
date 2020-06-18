@@ -13,7 +13,8 @@ class TetrisBoard {
     context.strokeStyle = 'white';
     context.lineWidth = 1;
 
-    context.rect(10,10,280, 480);
+    context.rect(10,10,
+      TetrisCell.cellSize * 10 + TetrisCell.cellOffset * (10 + 1),        TetrisCell.cellSize * 17 + TetrisCell.cellOffset * (17 + 1));
     context.stroke();
   }
 }
@@ -23,8 +24,10 @@ class TetrisCell {
   private color: string;
   private position: {x: number, y: number};
 
-  private static cellSize = 26;
-  private static cellOffset = 2;
+
+  private static boardOffset = 12;
+  public static cellSize = 26;
+  public static cellOffset = 2;
   
   constructor(context: CanvasRenderingContext2D,
               color: string,
@@ -41,7 +44,11 @@ class TetrisCell {
     context.fillStyle = this.color;
     context.lineWidth = 1;
 
-    context.fillRect(12,12,26,26);
+    context.fillRect(
+      TetrisCell.boardOffset + this.position.x * TetrisCell.cellSize + this.position.x * TetrisCell.cellOffset,
+      TetrisCell.boardOffset + this.position. y * TetrisCell.cellSize + this.position.y * TetrisCell.cellOffset,
+      TetrisCell.cellSize,
+      TetrisCell.cellSize);
     //context.fill();
   }
 }
@@ -62,6 +69,11 @@ context.fillStyle = 'green'
 
 const tetrisBoard = new TetrisBoard(context);
 tetrisBoard.draw();
+const colors = ['lightgreen', 'crimson', 'royalblue', 'gold'];
 
-const tetrisCell = new TetrisCell(context, 'red',1,1);
-tetrisCell.draw();
+for(var i = 0; i < 10; i ++) {
+  for(var j =0;  j< 17; j++){
+    var tetrisCell = new TetrisCell(context, colors[(j+i)%4], i, j)
+    tetrisCell.draw();
+  }
+}
