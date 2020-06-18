@@ -22,7 +22,7 @@ class TetrisBoard {
 class TetrisCell {
   private context: CanvasRenderingContext2D;
   private color: string;
-  private position: {x: number, y: number};
+  public position: {x: number, y: number};
 
 
   private static boardOffset = 12;
@@ -71,9 +71,16 @@ const tetrisBoard = new TetrisBoard(context);
 tetrisBoard.draw();
 const colors = ['lightgreen', 'crimson', 'royalblue', 'gold'];
 
-for(var i = 0; i < 10; i ++) {
-  for(var j =0;  j< 17; j++){
-    var tetrisCell = new TetrisCell(context, colors[(j+i)%4], i, j)
+var tetrisCell = new TetrisCell(context, colors[0], 4, -2)
+
+
+const gameloop = (tetrisCell: TetrisCell) => {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+    tetrisBoard.draw();
+    tetrisCell.position.x +=0;
+    tetrisCell.position.y +=1;
     tetrisCell.draw();
-  }
+    setTimeout(() => gameloop(tetrisCell), 1000)
 }
+
+gameloop(tetrisCell);
